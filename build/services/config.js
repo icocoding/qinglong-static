@@ -25,7 +25,7 @@ let ConfigService = class ConfigService {
             res.send({ code: 403, message: '文件无法访问' });
         }
         if (filePath.startsWith('sample/')) {
-            const res = await got_1.default.get(`https://gitlab.com/whyour/qinglong/-/raw/master/${filePath}`);
+            const res = await got_1.default.get(`https://gitlab.com/icocoding/qinglong/-/raw/master/${filePath}`);
             content = res.body;
         }
         else if (filePath.startsWith('data/scripts/')) {

@@ -150,6 +150,9 @@ exports.default = (app) => {
             return next(e);
         }
     });
+    /**
+     * 编辑保存
+     */
     route.put('/', (0, celebrate_1.celebrate)({
         body: celebrate_1.Joi.object({
             filename: celebrate_1.Joi.string().required(),
@@ -164,7 +167,8 @@ exports.default = (app) => {
             await fs.writeFile(filePath, content);
             // 备份脚本
             const { name, ext } = (0, path_1.parse)(filename);
-            const bakDir = (0, path_1.join)(config_1.default.logPath, `${path.replace('/', '-')}-${name}.bak`);
+            const prefix = path == '/' ? '' : path.replace('/', '-');
+            const bakDir = (0, path_1.join)(config_1.default.logPath, `${prefix}${name}.bak`);
             const execTime = (0, dayjs_1.default)().format('YYYY-MM-DD-HH-mm-ss-SSS');
             const bakPath = `${bakDir}/${execTime}${ext}`;
             const fileExists = await (0, util_1.fileExist)(bakDir);
@@ -220,6 +224,9 @@ exports.default = (app) => {
             return next(e);
         }
     });
+    /**
+     * 调式执行
+     */
     route.put('/run', (0, celebrate_1.celebrate)({
         body: celebrate_1.Joi.object({
             filename: celebrate_1.Joi.string().required(),
@@ -234,7 +241,9 @@ exports.default = (app) => {
             const filePath = (0, path_1.join)(config_1.default.scriptPath, path, `${name}.swap${ext}`);
             await fs.writeFile(filePath, content || '', { encoding: 'utf8' });
             // 备份执行脚本
-            const bakDir = (0, path_1.join)(config_1.default.logPath, path, `${name}.swap`);
+            const prefix = path == '/' ? '' : path.replace('/', '-');
+            const bakDir = (0, path_1.join)(config_1.default.logPath, `${prefix}${name}.bak`);
+            // const bakDir = join(config.logPath, path, `${name}.swap`);
             const execTime = (0, dayjs_1.default)().format('YYYY-MM-DD-HH-mm-ss-SSS');
             const bakPath = `${bakDir}/${execTime}${ext}`;
             const fileExists = await (0, util_1.fileExist)(bakDir);

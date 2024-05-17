@@ -326,7 +326,7 @@ let NotificationService = class NotificationService {
                     textcard: {
                         title: `${this.title}`,
                         description: `${this.content}`,
-                        url: 'https://github.com/whyour/qinglong',
+                        url: 'https://github.com/icocoding/qinglong',
                         btntxt: '更多',
                     },
                 };
